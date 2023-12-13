@@ -1,1 +1,1 @@
-jfizeriçfcuqeçfeçzfeçzfisdçifodfiàziàeif# Projet-info
+chaque partie du code est a faire separemment
