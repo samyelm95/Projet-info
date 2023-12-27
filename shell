@@ -17,3 +17,4 @@ set style fill solid
 
 plot '$fichier_resultat' using 1:2
 EOF
+#tu devras peut etre faire un chmod +x "nom du fichier.sh" et l'histogramme tu devras l'ouvrir manuellement
