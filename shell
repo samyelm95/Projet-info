@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Remplacer 'mon_fichier.csv' par le chemin de votre fichier CSV
-fichier_csv="/home/marzagui/Travail/test/gnp_test/data.csv"
-fichier_resultat="/home/marzagui/Travail/test/gnp_test/de.txt"
+fichier_csv="/Projet/csv/data.csv"
+fichier_resultat="/Projet/temp/resultat.txt"
 
 # Trier et afficher les 5 premières lignes triées
 cut -d';' -f1,6 "$fichier_csv" | head -5 > $fichier_resultat
@@ -10,7 +10,7 @@ cut -d';' -f1,6 "$fichier_csv" | head -5 > $fichier_resultat
 #AFFICHAGE GNUPLOT SI ÇA VEUT BIEN
 gnuplot -persist <<EOF
 set terminal png
-set output '/home/marzagui/Travail/test/gnp_test/histogramme.png'
+set output '/Projet/temp/images/histogramme.png'
 set xlabel 'nom conducteurs'
 set ylabel 'Route ID'
 set style fill solid 
