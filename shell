@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Remplacer 'mon_fichier.csv' par le chemin de votre fichier CSV
+# Remplacer 'mon_fichier.csv' par le chemin de votre fichier CSV (la cmd pwd pourra taider)
 fichier_csv="/Projet/csv/data.csv"
 fichier_resultat="/Projet/temp/resultat.txt"
 
