@@ -16,6 +16,7 @@ typedef struct AVLNode {
 } AVLNode;
 
 // Implémentation des opérations AVL
+
 int max(int a, int b) {
     return (a > b) ? a : b;
 }
@@ -30,6 +31,7 @@ int height(AVLNode *node) {
         return 1 + max(left_height, right_height);
     }
 }
+
 AVLNode *newAVLNode(int id_trajet, double distance) {
     AVLNode *node = (AVLNode *)malloc(sizeof(AVLNode));
     if (node == NULL) {
@@ -44,13 +46,11 @@ AVLNode *newAVLNode(int id_trajet, double distance) {
     return node;
 }
 
-
 AVLNode *insert(AVLNode *root, int id_trajet, double distance) {
     // Effectuer l'insertion de manière normale
     if (root == NULL) {
         return newAVLNode(id_trajet, distance);
     }
-
     if (id_trajet < root->id_trajet) {
         root->left = insert(root->left, id_trajet, distance);
     } else if (id_trajet > root->id_trajet) {
@@ -59,7 +59,6 @@ AVLNode *insert(AVLNode *root, int id_trajet, double distance) {
         // Si l'identifiant du trajet est déjà présent, faites la gestion appropriée
         return root;
     }
-
     // Mettre à jour la hauteur du nœud actuel
     root->height = 1 + max(height(root->left), height(root->right));
 
@@ -88,6 +87,7 @@ AVLNode *insert(AVLNode *root, int id_trajet, double distance) {
 
     return root;
 }
+
 AVLNode *rotateRight(AVLNode *y) {
     AVLNode *x = y->left;
     AVLNode *T2 = x->right;
@@ -124,53 +124,6 @@ int getBalance(AVLNode *node) {
     } else {
         return height(node->left) - height(node->right);
     }
-}
-
-
-
-// Fonctions pour les traitements T et S
-void traitementT(FILE *file, AVLNode **root);
-void traitementS(FILE *file, AVLNode **root);
-
-
-
-
- // Initialisation de la racine de l'AVL
-    AVLNode *root = NULL;
-
-    // Ajoutez ici la logique pour gérer les arguments et les traitements demandés
-    // Utilisez les fonctions de traitement définies ci-dessus
-
-    // Fermeture du fichier
-    fclose(file);
-
-    return 0;
-}
-
-
-
-
-int main(int argc, char *argv[]) {
-    // Vérification du nombre d'arguments
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <chemin_fichier_csv>\n", argv[0]);
-        return 1;
-    }
-
-    // Ouverture du fichier CSV
-    FILE *file = fopen(argv[1], "r");
-    if (!file) {
-        perror("Erreur lors de l'ouverture du fichier");
-        return 1;
-    }
-
-// Implémentation des fonctions de traitement T et S
-void traitementT(FILE *file, AVLNode **root) {
-    // Ajoutez ici la logique pour le traitement T en utilisant l'AVL
-}
-
-void traitementS(FILE *file, AVLNode **root) {
-   // Ajoutez ici la logique pour le traitement S en utilisant l'AVL
 }
 
 
