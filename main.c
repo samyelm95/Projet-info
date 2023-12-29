@@ -11,72 +11,93 @@ void parcoursInfixe(Noeud *racine) {
     }
 }
 
-int main() {
-    Noeud *racine = NULL;
+// Structure pour représenter une étape
+typedef struct {
+    int id_trajet;
+    char ville_depart[50];
+    char ville_arrivee[50];
+    int est_depart;
+} Etape;
 
-    Trajet trajet1 = {1, "Paris"};
-    Trajet trajet2 = {2, "Lyon"};
-    Trajet trajet3 = {3, "Marseille"};
+// Structure pour représenter une ville avec le nombre de trajets total et le nombre de départs
+typedef struct {
+    char nom[50];
+    int trajets_total;
+    int departs;
+} Ville;
 
-    racine = inserer(racine, trajet1);
-    racine = inserer(racine, trajet2);
-    racine = inserer(racine, trajet3);
+// Structure pour représenter la distance d'une étape
+typedef struct {
+    int id_trajet;
+    int id_etape;
+    int distance;
+} Distance;
 
-    printf("Trajets triés par identifiant :\n");
-    parcoursInfixe(racine);
-
-    libererArbre(racine);
-
-    return 0;
-}
-
-
-
-
-
-
-
-// Fonctions pour les traitements T et S
-void traitementT(FILE *file, AVLNode **root);
-void traitementS(FILE *file, AVLNode **root);
-
-
-
-
- // Initialisation de la racine de l'AVL
-    AVLNode *root = NULL;
-
-    // Ajoutez ici la logique pour gérer les arguments et les traitements demandés
-    // Utilisez les fonctions de traitement définies ci-dessus
-
-    // Fermeture du fichier
-    fclose(file);
-
-    return 0;
-}
+// ... Autres fonctions pour AVL, tri, etc.
 
 int main(int argc, char *argv[]) {
-    // Vérification du nombre d'arguments
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <chemin_fichier_csv>\n", argv[0]);
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <option> <fichier.csv>\n", argv[0]);
         return 1;
     }
 
-    // Ouverture du fichier CSV
-    FILE *file = fopen(argv[1], "r");
-    if (!file) {
-        perror("Erreur lors de l'ouverture du fichier");
+    char option = argv[1][0];
+    char *fichier_csv = argv[2];
+
+A INSERER DANS LES OPTION SELON LES FICHIER DONT ON AURA BESOIN
+     // Ouverture du fichier CSV en mode lecture (créer un fichier éphémaire pour chaque élément de la structure)
+    FILE *fichier = fopen(fichier_csv, "r");
+    if (fichier == NULL) {
+        fprintf(stderr, "Erreur d'ouverture du fichier.\n");
         return 1;
     }
 
-// Implémentation des fonctions de traitement T et S
-void traitementT(FILE *file, AVLNode **root) {
-    // Ajoutez ici la logique pour le traitement T en utilisant l'AVL
-}
+OPTION T
+// Liste pour stocker les etapes par exemple
+    Etape *p1 = NULL;
+    int nombre_etapes = 0;
 
-void traitementS(FILE *file, AVLNode **root) {
-   // Ajoutez ici la logique pour le traitement S en utilisant l'AVL
-}
+    // Lire le fichier CSV éphémaire et attribuer les valeurs à chaque nœud 
+    while (fscanf(data.csv, "%d,%49[^,],%49[^,],%d\n", &etapes[nombre_etapes].id_trajet, etapes[nombre_etapes].ville_depart, etapes[nombre_etapes].ville_arrivee,
+                  &etapes[nombre_etapes].est_depart) == 4) {
+        // Incrémenter le nombre d'étapes
+        nombre_etapes++;
+        // Réallouer la mémoire pour le tableau d'étapes
+        etapes = realloc(etapes, (nombre_etapes + 1) * sizeof(Etape));
+        if (etapes == NULL) {
+            fprintf(stderr, "Erreur d'allocation de mémoire.\n");
+            return 1;
+        }
+    }
+
+OPTION S
+// Liste pour stocker les distances
+    Trajet *p1 = NULL;
+    int nombre_etapes = 0;
+
+// Lire le fichier CSV éphémaire et attribuer les valeurs à chaque nœud 
+    while (fscanf(data.csv, "%d,%d,%d\n", &etapes[nombre_etapes].id_trajet, &etapes[nombre_etapes].id_etape, &etapes[nombre_etapes].est_depart) == 3) {
+        // Incrémenter le nombre d'étapes
+        nombre_etapes++;
+        // Réallouer la mémoire pour le tableau d'étape
+        etapes = realloc(etapes, (nombre_etapes + 1) * sizeof(Etape));
+        if (etapes == NULL) {
+            fprintf(stderr, "Erreur d'allocation de mémoire.\n");
+            return 1;
+        }
+    }
 
 
+    if (option == 't') {
+        // ... Traitement pour obtenir les 10 villes les plus traversées ...
+    } else if (option == 's') {
+        // ... Traitement pour obtenir les statistiques sur les étapes ...
+    } else {
+        fprintf(stderr, "Option non reconnue.\n");
+        return 1;
+    }
 
+    // Afficher les résultats ou les stocker dans des structures de données selon vos besoins
+    // ...
+
+    return 0;
