@@ -21,28 +21,15 @@ set boxwidth 0.5
 
 plot '$fichier_resultat' using 1:xtic(2) with boxes notitle
 EOF
+#debut traitement 1
+fichier_csv="/home/marzagui/Travail/test/gnp_test/data.csv"
+fichier_sortie="de.txt"
 
-#début traitement 1 
-#!/bin/bash
+# Utilisation de 'awk' pour extraire le nom et le prénom de la 6ème colonne et les placer dans un fichier de sortie
+awk -F';' '{gsub("\"", "", $6); print $6}' "$fichier_csv" | awk 'BEGIN { FS=";"; OFS=" " } {split($0,names," "); print names[length(names)-1], names[length(names)]}' > "$fichier_sortie"
 
-# Chemin du fichier CSV
-fichier_csv="/home/marzaguina/Travail/Projet/data.csv"
+# Compter les occurrences des noms et prénoms, trier par ordre décroissant des occurrences
+awk '{count[$0]++} END {for (word in count) print count[word], word}' "$fichier_sortie" | sort -nr | awk '{print $2, $3}' | head -10 > "$fichier_sortie.tmp"
 
-# Fichier de résultat temporaire
-fichier_resultat="/home/marzaguina/Travail/Projet/resultat.txt"
-
-# Trier et afficher les 5 premières lignes triées
-cut -d';' -f1,6 "$fichier_csv" | head -5 > "$fichier_resultat"
-
-# Utilisation de Gnuplot pour tracer l'histogramme
-gnuplot -persist <<-EOF
-set datafile separator ';'
-set terminal png
-set output '/home/marzaguina/Travail/Projet/histogramme.png'  
-set style fill solid 
-set xlabel 'DRIVER NAME'
-set ylabel 'ROUTE ID'
-set boxwidth 0.5
-
-plot '$fichier_resultat' using 1:xtic(2) with boxes notitle
-EOF
+# Remplacer le contenu du fichier d'origine par les noms triés par ordre d'occurrence
+mv "$fichier_sortie.tmp" "$fichier_sortie"
