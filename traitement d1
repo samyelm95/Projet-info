@@ -3,8 +3,10 @@
 # Mesure du temps
 start_time=$(date +%s)
 
-fichier_trajets="data.csv"
-fichier_resultats="resultat.txt"
+#création des fichiers nécessaires
+
+fichier_trajets="Data/data.csv"
+fichier_resultats="Temp/resultat.txt"
 
 # Tri respectant la consigne
 awk -F ';' '
@@ -22,7 +24,7 @@ END {
 # Affichage GNUplot avec titre
 gnuplot -persist <<-EOF
 set terminal pngcairo enhanced font 'Times New Roman,12' size 800, 640
-set output '/home/marzaguina/Travail/Projet/b.png'
+set output '/histogramme_horizontal.png'
 set title "Option -d1"
 set style fill solid
 set xrange [0:250]
