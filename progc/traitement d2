@@ -6,7 +6,7 @@ start_time=$(date +%s)
 
 #chemin des fichiers
 fichier_csv="Data/data.csv"
-fichier_trajet="/home/marzagui/Travail/PROJET/d2/d2.txt"
+fichier_trajet="Temp/resultat.txt"
 
 #tri du fichier data
 awk -F ';' '{sum[$6]+=$5} END {for (i in sum) print sum[i],i}' "$fichier_csv" | sort -nr | head -n 10 > $fichier_trajet
