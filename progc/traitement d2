@@ -14,10 +14,10 @@ awk -F ';' '{sum[$6]+=$5} END {for (i in sum) print sum[i],i}' "$fichier_csv" | 
 # Commande GNUplot
 gnuplot -persist <<EOF
 set terminal pngcairo enhanced font 'Times New Roman,12' size 800, 640
-set output '/home/marzagui/Travail/PROJET/d2/d2.png'
+set output '/histogramme_vertical.png'
 set style fill solid
-set xrange [-1:10]  # Adaptez cette plage au nombre de lignes dans votre fichier
-set yrange [0:160000]   # Adaptez cette plage à la distance maximale dans vos données
+set xrange [-1:10]  
+set yrange [0:160000]   
 set boxwidth 0.5
 set ytics nomirror
 set xtics rotate by -45
