@@ -1,1 +1,1 @@
-chaque partie du code est a faire separemment
+chaque partie du code est a faire separemment.
