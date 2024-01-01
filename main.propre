@@ -23,7 +23,7 @@ typedef struct {
 typedef struct {
     char nom[50];
     int trajets_total;
-    int departs;
+    int departs;  // Modifié le type de booleen à int
 } Ville;
 
 // Structure pour représenter la distance d'une étape
@@ -46,45 +46,49 @@ int main(int argc, char *argv[]) {
 
     if (option == 't') {
         FILE *fichier = fopen(fichier_csv, "r");
-            if (fichier == NULL) {
-                fprintf(stderr, "Erreur d'ouverture du fichier.\n");
-                return 1;
-        };
+        if (fichier == NULL) {
+            fprintf(stderr, "Erreur d'ouverture du fichier.\n");
+            return 1;
+        }
         Etape *p1 = NULL;
         int nombre_etapes = 0;
-        while (fscanf(data.csv, "%d,%49[^,],%49[^,],%d\n", &etapes[nombre_etapes].id_trajet, etapes[nombre_etapes].ville_depart, etapes[nombre_etapes].ville_arrivee,
-                  &etapes[nombre_etapes].est_depart) == 4) {
-          nombre_etapes++;
-          etapes = realloc(etapes, (nombre_etapes + 1) * sizeof(Etape));
-          if (etapes == NULL) {
-            fprintf(stderr, "Erreur d'allocation de mémoire.\n");
-            return 1;
-          }
+        while (fscanf(fichier, "%d,%49[^,],%49[^,],%d\n", &p1[nombre_etapes].id_trajet, p1[nombre_etapes].ville_depart, p1[nombre_etapes].ville_arrivee,
+                      &p1[nombre_etapes].est_depart) == 4) {
+            nombre_etapes++;
+            p1 = realloc(p1, (nombre_etapes + 1) * sizeof(Etape));
+            if (p1 == NULL) {
+                fprintf(stderr, "Erreur d'allocation de mémoire.\n");
+                return 1;
+            }
         }
-//programme suite
+        // Programme suite
 
+        free(p1);  // Libérer la mémoire allouée
+        fclose(fichier);  // Fermer le fichier
     } else if (option == 's') {
         FILE *fichier = fopen(fichier_csv, "r");
         if (fichier == NULL) {
             fprintf(stderr, "Erreur d'ouverture du fichier.\n");
             return 1;
-        };
+        }
         Trajet *p1 = NULL;
-        int nombre_etapes = 0;
-        while (fscanf(data.csv, "%d,%d,%d\n", &etapes[nombre_etapes].id_trajet, &etapes[nombre_etapes].id_etape, &etapes[nombre_etapes].est_depart) == 3) {
-                nombre_etapes++;
-                etapes = realloc(etapes, (nombre_etapes + 1) * sizeof(Etape));
-                if (etapes == NULL) {
-                    fprintf(stderr, "Erreur d'allocation de mémoire.\n");
-                    return 1;
-                }
-         }
-//programe suite
+        int nombre_trajets = 0;
+        while (fscanf(fichier, "%d,%d,%d\n", &p1[nombre_trajets].id_trajet, &p1[nombre_trajets].id_etape, &p1[nombre_trajets].est_depart) == 3) {
+            nombre_trajets++;
+            p1 = realloc(p1, (nombre_trajets + 1) * sizeof(Trajet));
+            if (p1 == NULL) {
+                fprintf(stderr, "Erreur d'allocation de mémoire.\n");
+                return 1;
+            }
+        }
+        // Programme suite
 
+        free(p1);  // Libérer la mémoire allouée
+        fclose(fichier);  // Fermer le fichier
     } else {
         fprintf(stderr, "Option non reconnue.\n");
         return 1;
     }
 
-
     return 0;
+}
