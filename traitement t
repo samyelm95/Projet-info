@@ -279,6 +279,9 @@ int main(int argc, char *argv[]) {
             Top10[j]->trajet_total=tmp1->trajet_total;
             tmp1=tmp1->next;
         };
+        for(int i=0,i<10,i++){
+            printf("nom de la ville : %s nombre de trajets : %d nombre de fois départ : %d", Top10[i]->nom, Top10[i]->trajet_total, Top10[i]->departs);
+        }
         desalouerVille(pliste);
         desalouerville(l1);
         free(p1);  // Libérer la mémoire allouée
