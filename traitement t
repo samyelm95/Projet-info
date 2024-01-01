@@ -64,7 +64,7 @@ AVLville *insert(AVLville *root, int id_trajet, int a) {
         }
     }
 
-AVLville *rotateRight(AVLNode *y) {
+AVLville *rotateRight(AVLville *y) {
     AVLville *x = y->gauche;
     AVLville *T2 = x->droite;
 
@@ -73,13 +73,13 @@ AVLville *rotateRight(AVLNode *y) {
     y->gauche = T2;
 
     // Mise à jour des hauteurs
-    y->hauteur = max(height(y->gauche), height(y->droite) + 1;
+    y->hauteur = max(height(y->gauche), height(y->droite)) + 1;
     x->hauteur = max(height(x->gauche), height(x->droite)) + 1;
 
     return x;
 }
 
-AVLville *rotateLeft(AVLNode *x) {
+AVLville *rotateLeft(AVLville *x) {
     AVLville *y = x->droite;
     AVLville *T2 = y->gauche;
 
@@ -136,16 +136,16 @@ ville* insertionville(ville* pliste, char vil){
     if (tmp!){
         tmp->ville=vil;
         tmp->next=NULL;
-        return tmp;
-    }else if(tmp->ville=ville){
+        return pliste;
+    }else if(tmp->ville=vil){
         exit(1);
     }else{
         tmp=tmp->next
-    };
- };
+    }
+ }
 
 //Fonction insertion liste par ordre décroissant des villes les plus traversées
-Ville *insert_stat(Ville* l1;char pliste->ville,int k,int l){
+Ville *insert_stat(Ville* l1,char pliste->ville,int k,int l){
     Ville *tmp=NULL;
     tmp=l1;
     Ville* new = (Ville*)malloc(sizeof(ville));
@@ -253,8 +253,8 @@ int main(int argc, char *argv[]) {
         int j=0;
         ville* pliste=NULL;
         for(int i=0;i<nombre_etapes;i++){
-            *(p1[nombre_etapes].ville_depart)=insert(AVLville *(p1[nombre_etapes].ville_depart), int p1[nombre_etapes]->id_trajet,int a);
-            *(p1[nombre_etapes].ville_arrivee)=insert(AVLville *(p1[nombre_etapes].ville_arrivee), int p1[nombre_etapes]->id_trajet,int b);
+            *(p1[nombre_etapes].ville_depart)=insert((p1[nombre_etapes].ville_depart),p1[nombre_etapes]->id_trajet,a);
+            *(p1[nombre_etapes].ville_arrivee)=insert((p1[nombre_etapes].ville_arrivee), p1[nombre_etapes]->id_trajet,b);
             pliste=insertliste(pliste,(p1[nombre_etapes].ville_depart));
             pliste=insertliste(pliste,(p1[nombre_etapes].ville_arrivee));
         };
@@ -282,7 +282,7 @@ int main(int argc, char *argv[]) {
         desalouerville(l1);
         free(p1);  // Libérer la mémoire allouée
         fclose(fichier);  // Fermer le fichier
-        return Top10;
+        return 0;
 };
    
 
