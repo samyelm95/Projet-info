@@ -117,8 +117,8 @@ int main(int argc, char *argv[]) {
         int b=0;
         ville* pliste=NULL;
         for(i=0,i<nombre_etapes,i++){
-            *(p1[nombre_etapes].ville_depart)=insertAVLville(AVLville *(p1[nombre_etapes].ville_depart), Etape p1[nombre_etapes],int a);
-            *(p1[nombre_etapes].ville_arrivee)=insertAVLville(AVLville *(p1[nombre_etapes].ville_arrivee), Etape p1[nombre_etapes],int b);
+            *(p1[nombre_etapes].ville_depart)=insertAVLville(AVLville *(p1[nombre_etapes].ville_depart), int p1[nombre_etapes]->id_trajet,int a);
+            *(p1[nombre_etapes].ville_arrivee)=insertAVLville(AVLville *(p1[nombre_etapes].ville_arrivee), int p1[nombre_etapes]->id_trajet,int b);
             pliste=insertliste(pliste,(p1[nombre_etapes].ville_depart));
             pliste=insertliste(pliste,(p1[nombre_etapes].ville_arrivee));
         };
