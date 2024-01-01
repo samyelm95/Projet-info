@@ -54,6 +54,34 @@ AVLNode *newAVLNode(int id_trajet, double distance) {
     return node;
 }
 
+AVLville *insert(AVLville *root, int id_trajet, int a) {
+    // Effectuer l'insertion de manière normale
+    if (root == NULL) {
+        return newAVLNode(id_trajet, distance);
+    }
+    if (id_trajet < root->id_trajet) {
+        root->left = insert(root->left, id_trajet, distance);
+    } else if (id_trajet > root->id_trajet) {
+        root->right = insert(root->right, id_trajet, distance);
+    } else {
+        // Si l'identifiant du trajet est déjà présent, faites la gestion appropriée
+        return root;
+    }
+    // Mettre à jour la hauteur du nœud actuel
+    root->height = 1 + max(height(root->left), height(root->right));
+
+    // Obtenir le facteur d'équilibre du nœud
+    int balance = getBalance(root);
+
+    // Cas de déséquilibre à gauche
+    if (balance > 1) {
+        if (id_trajet < root->left->id_trajet) {
+            return rotateRight(root);
+        } else if (id_trajet > root->left->id_trajet) {
+            root->left = rotateLeft(root->left);
+            return rotateRight(root);
+        }
+    }
 AVLNode *insert(AVLNode *root, int id_trajet, double distance) {
     // Effectuer l'insertion de manière normale
     if (root == NULL) {
