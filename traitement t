@@ -4,7 +4,7 @@ typedef struct {
     int d;
     int hauteur;
     struct AVLville *gauche;
-    struct AVLvilleille *droite;
+    struct AVLville *droite;
 } AVLville;
 
 int max(int a, int b) {
@@ -209,7 +209,7 @@ int main(int argc, char *argv[]) {
         }
         Etape *p1 = NULL;
         int nombre_etapes = 0;
-        while (fscanf(fichier, "%d,%49[^,],%49[^,],%d\n", &p1[nombre_etapes].id_trajet, p1[nombre_etapes].ville_depart, p1[nombre_etapes].ville_arrivee == 3) {
+        while (fscanf(fichier, "%d,%49[^,],%49[^,]", &p1[nombre_etapes].id_trajet, p1[nombre_etapes].ville_depart, p1[nombre_etapes].ville_arrivee == 3) {
             nombre_etapes++;
             p1 = realloc(p1, (nombre_etapes + 1) * sizeof(Etape));
             if (p1 == NULL) {
@@ -221,7 +221,7 @@ int main(int argc, char *argv[]) {
         int b=0;
         
         ville* pliste=NULL;
-        for(i=0;i<nombre_etapes;i++){
+        for(int i=0;i<nombre_etapes;i++){
             
             if (
             *(p1[nombre_etapes].ville_depart)=insert(AVLville *(p1[nombre_etapes].ville_depart), int p1[nombre_etapes]->id_trajet,int a);
@@ -243,7 +243,7 @@ int main(int argc, char *argv[]) {
         Ville Top10[10]=NULL;
         Ville* tmp1=NULL;
         tmp1=l1;
-        for (i=0;i<10;i++){
+        for (int i=0;i<10;i++){
             Top10[i]->nom=tmp1->nom;
             Top10[i]->departs=tmp1->departs;
             Top10[i]->trajet_total=tmp1->trajet_total;
