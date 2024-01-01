@@ -40,6 +40,14 @@ typedef struct {
     int distance;
 } Distance;
 
+// Fonction pour compter le nombre de nœuds dans un arbre AVL
+int compterNoeuds(Noeud *racine) {
+    if (racine == NULL) {
+        return 0;
+    }
+    return 1 + compterNoeuds(racine->gauche) + compterNoeuds(racine->droite);
+}
+
 // ... Autres fonctions pour AVL, tri, etc.
 
 int main(int argc, char *argv[]) {
@@ -68,6 +76,9 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
         }
+        for(i=0,i<nombre_etapes,i++){
+            if(*p1[nombre_etapes].ville_depart! && *p1[nombre_etapes].ville_arrivee!){
+                
         // Programme suite
 
         free(p1);  // Libérer la mémoire allouée
