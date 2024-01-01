@@ -11,6 +11,11 @@ void parcoursInfixe(Noeud *racine) {
     }
 }
 
+typedef struct{
+    char ville[50];
+    struct ville* pnext;
+}ville;
+
 typedef struct {
     Etape a;
     struct AVLNode *left;
@@ -29,7 +34,8 @@ typedef struct {
 typedef struct {
     char nom[50];
     int trajets_total;
-    int departs;  // Modifié le type de booleen à int
+    int departs;
+    struct Ville* pnext
 } Ville;
 
 // Structure pour représenter la distance d'une étape
@@ -38,6 +44,43 @@ typedef struct {
     int id_etape;
     int distance;
 } Distance;
+
+//fonction insertion ville
+ville* insertionville(ville* pliste, char vil){
+    if (pliste!){
+        pliste->ville=vil;
+        pliste->next=NULL;
+        return pliste;
+    }else if(pliste->ville=ville){
+        exit(1);
+    }else{
+        pliste=pliste->next
+    };
+ };
+
+//Fonction compter nombre chainon liste
+int nombre_chainon(ville* pliste){
+    int v=0;
+    while(pliste!=NULL){
+        v++;
+        pliste=plist->next;
+    };
+    return v;
+};
+
+//Fonction pour compter le nombre de noeuds départ dans un avl
+int compterDépart(Noeud *racine){
+    int v=0;
+    if (racine != NULL && racine->d=1) {
+        v++;
+        parcoursInfixe(racine->gauche);
+        parcoursInfixe(racine->droite);
+    }else{
+        parcoursInfixe(racine->gauche);
+        parcoursInfixe(racine->droite);
+    };
+    return v;
+};
 
 // Fonction pour compter le nombre de nœuds dans un arbre AVL
 int compterNoeuds(Noeud *racine) {
@@ -75,14 +118,27 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
         }
+        int a=1;
+        int b=0;
+        ville* pliste=NULL;
         for(i=0,i<nombre_etapes,i++){
-            *(p1[nombre_etapes].ville_depart)=insert(AVLville *(p1[nombre_etapes].ville_depart), Etape p1[nombre_etapes]);
-            *(p1[nombre_etapes].ville_arrivee)=insert(AVLville *(p1[nombre_etapes].ville_arrivee), Etape p1[nombre_etapes]);
+            *(p1[nombre_etapes].ville_depart)=insertAVLville(AVLville *(p1[nombre_etapes].ville_depart), Etape p1[nombre_etapes],int a);
+            *(p1[nombre_etapes].ville_arrivee)=insertAVLville(AVLville *(p1[nombre_etapes].ville_arrivee), Etape p1[nombre_etapes],int b);
+            pliste=insertliste(pliste,(p1[nombre_etapes].ville_depart));
+            pliste=insertliste(pliste,(p1[nombre_etapes].ville_arrivee));
+        };
+        Ville* l1=NULL;
+        int k=0;
+        int l=0;
+        while(pliste!=NULL){
+            k=compterNoeuds(AVL* pliste->char);
+            l=compterDépart(AVL* pliste->char);
+            l1=insert_stat(l1;pliste->char,k,l);
+            pliste=pliste->next;
         };
         
-                
         
-
+    
         // Programme suite
 
         free(p1);  // Libérer la mémoire allouée
