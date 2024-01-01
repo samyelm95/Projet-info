@@ -11,7 +11,7 @@ typedef struct{
 
 //structure AVL
 typedef struct {
-    Etape a;
+    int id_trajet;
     int d;
     struct AVLNode *left;
     struct AVLNode *right;
@@ -28,7 +28,7 @@ typedef struct {
 // Structure pour représenter une ville avec le nombre de trajets total et le nombre de départs
 typedef struct {
     char nom[50];
-    int trajets_total;
+    int trajet_total;
     int departs;
     struct Ville* pnext
 } Ville;
