@@ -181,6 +181,7 @@ void desalouerVille(Ville* l1){
         Ville *aLiberer = l1;
         l1 = l1->next;
         free(aLiberer);
+    };
 };
 
 void desalouerville(ville* l1){
@@ -188,6 +189,7 @@ void desalouerville(ville* l1){
         Ville *aLiberer = l1;
         l1 = l1->next;
         free(aLiberer);
+    };
 };
 
 int main(int argc, char *argv[]) {
@@ -219,7 +221,7 @@ int main(int argc, char *argv[]) {
         int a=1;
         int b=0;
         ville* pliste=NULL;
-        for(i=0,i<nombre_etapes,i++){
+        for(i=0;i<nombre_etapes;i++){
             *(p1[nombre_etapes].ville_depart)=insertAVLville(AVLville *(p1[nombre_etapes].ville_depart), int p1[nombre_etapes]->id_trajet,int a);
             *(p1[nombre_etapes].ville_arrivee)=insertAVLville(AVLville *(p1[nombre_etapes].ville_arrivee), int p1[nombre_etapes]->id_trajet,int b);
             pliste=insertliste(pliste,(p1[nombre_etapes].ville_depart));
@@ -238,17 +240,17 @@ int main(int argc, char *argv[]) {
         };
         Ville Top10[10]=NULL;
         Ville* tmp1=l1;
-        for (i=0,i<10,i++){
+        for (i=0;i<10;i++){
             Top10[i]->nom=tmp1->nom;
             Top10[i]->departs=tmp1->departs;
             Top10[i]->trajet_total=tmp1->trajet_total;
             tmp1=tmp1->next;
         };
-        return Top10;
         desalouerVille(pliste);
         desalouerville(l1);
         free(p1);  // Libérer la mémoire allouée
         fclose(fichier);  // Fermer le fichier
+        return Top10;
 };
    
 
