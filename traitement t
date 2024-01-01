@@ -185,7 +185,7 @@ int nombre_chainon(ville* pliste){
 };
 
 //Fonction pour compter le nombre de noeuds départ dans un avl
-int compterDépart(Noeud *racine){
+int compterDépart(AVLville *racine){
     int v=0;
     if (racine != NULL && racine->d=1) {
         v++;
@@ -239,7 +239,7 @@ int main(int argc, char *argv[]) {
         }
         Etape *p1 = NULL;
         int nombre_etapes = 0;
-        while (fscanf(fichier, "%d,%49[^,],%49[^,]", &p1[nombre_etapes].id_trajet, p1[nombre_etapes].ville_depart, p1[nombre_etapes].ville_arrivee == 3) {
+        while (fscanf(fichier, "%d,%49[^,],%49[^,]", &p1[nombre_etapes].id_trajet, p1[nombre_etapes].ville_depart, p1[nombre_etapes].ville_arrivee == EOF) {
             nombre_etapes++;
             p1 = realloc(p1, (nombre_etapes + 1) * sizeof(Etape));
             if (p1 == NULL) {
