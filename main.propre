@@ -76,7 +76,10 @@ int main(int argc, char *argv[]) {
             }
         }
         for(i=0,i<nombre_etapes,i++){
-            *(p1[nombre_etapes].ville_depart)=
+            *(p1[nombre_etapes].ville_depart)=insert(AVLville *(p1[nombre_etapes].ville_depart), Etape p1[nombre_etapes]);
+            *(p1[nombre_etapes].ville_arrivee)=insert(AVLville *(p1[nombre_etapes].ville_arrivee), Etape p1[nombre_etapes]);
+        };
+        
                 
         
 
