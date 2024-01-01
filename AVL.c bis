@@ -1,66 +1,64 @@
 // Structure AVL pour les villes
 typedef struct AVLNodeVille {
-    char nom[50];
     int id_trajet;
     int hauteur;
     struct AVLNodeVille *gauche;
     struct AVLNodeVille *droite;
 } AVLville;
 
-// Fonction pour obtenir la hauteur d'un nœud AVL
-int hauteurAVL(AVLville *noeud) {
-    if (noeud == NULL) {
-        return 0;
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int height(AVLNode *node) {
+    if (node == NULL) {
+        return 0; // La hauteur d'un nœud vide est 0
+    } else {
+        int left_height = height(node->left);
+        int right_height = height(node->right);
+
+        return 1 + max(left_height, right_height);
     }
-    return noeud->hauteur;
 }
 
-// Fonction pour effectuer une rotation simple à droite
-AVLville* rotationDroite(AVLville *y) {
-    AVLville *x = y->gauche;
-    AVLville *T2 = x->droite;
-
-    // Effectuer la rotation
-    x->droite = y;
-    y->gauche = T2;
-
-    // Mettre à jour les hauteurs
-    y->hauteur = 1 + max(hauteurAVL(y->gauche), hauteurAVL(y->droite));
-    x->hauteur = 1 + max(hauteurAVL(x->gauche), hauteurAVL(x->droite));
-
-    return x;
-}
-
-// Fonction pour effectuer une rotation simple à gauche
-AVLville* rotationGauche(AVLville *x) {
-    AVLville *y = x->droite;
-    AVLville *T2 = y->gauche;
-
-    // Effectuer la rotation
-    y->gauche = x;
-    x->droite = T2;
-
-    // Mettre à jour les hauteurs
-    x->hauteur = 1 + max(hauteurAVL(x->gauche), hauteurAVL(x->droite));
-    y->hauteur = 1 + max(hauteurAVL(y->gauche), hauteurAVL(y->droite));
-
-    return y;
-}
-
-// Fonction pour obtenir le facteur d'équilibre d'un nœud
-int facteurEquilibre(AVLville *noeud) {
-    if (noeud == NULL) {
-        return 0;
+AVLNode *newAVLNode(int id_trajet, int a) {
+    AVLNode *node = (AVLNode *)malloc(sizeof(AVLNode));
+    if (node == NULL) {
+        perror("Erreur d'allocation mémoire");
+        exit(EXIT_FAILURE);
     }
-    return hauteurAVL(noeud->gauche) - hauteurAVL(noeud->droite);
+    node->id_trajet = id_trajet;
+    node->d = a;
+    node->left = NULL;
+    node->right = NULL;
+    node->height = 1;
+    return node;
 }
 
-// Fonction pour insérer un nœud dans un AVL
-AVLville* insertAVLville(AVLville *racine, char *nom, int id_trajet) {
-    // Votre logique d'insertion AVL ici
-}
+AVLville *insert(AVLville *root, int id_trajet, int a) {
+    // Effectuer l'insertion de manière normale
+    if (root == NULL) {
+        return newAVLNode(id_trajet, a);
+    }
+    if (id_trajet < root->id_trajet) {
+        root->left = insert(root->left, id_trajet, a);
+    } else if (id_trajet > root->id_trajet) {
+        root->right = insert(root->right, id_trajet, a);
+    } else {
+        return root;
+    }
+    // Mettre à jour la hauteur du nœud actuel
+    root->height = 1 + max(height(root->left), height(root->right));
 
-// Fonction pour insérer un nœud et rééquilibrer l'AVL
-AVLville* insertionEtReequilibrageAVL(AVLville *racine, char *nom, int id_trajet) {
-    // Logique d'insertion AVL et rééquilibrage ici
-}
+    // Obtenir le facteur d'équilibre du nœud
+    int balance = getBalance(root);
+
+    // Cas de déséquilibre à gauche
+    if (balance > 1) {
+        if (id_trajet < root->left->id_trajet) {
+            return rotateRight(root);
+        } else if (id_trajet > root->left->id_trajet) {
+            root->left = rotateLeft(root->left);
+            return rotateRight(root);
+        }
+    }
