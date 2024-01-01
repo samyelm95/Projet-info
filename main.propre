@@ -76,9 +76,7 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
         }
-        for(i=0,i<nombre_etapes,i++){
-            if(*p1[nombre_etapes].ville_depart! && *p1[nombre_etapes].ville_arrivee!){
-                
+        
         // Programme suite
 
         free(p1);  // Libérer la mémoire allouée
