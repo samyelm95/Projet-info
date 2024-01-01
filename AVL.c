@@ -17,6 +17,14 @@ typedef struct AVLNode {
 
 // Implémentation des opérations AVL
 
+void parcoursInfixe(Noeud *racine) {
+    if (racine != NULL) {
+        parcoursInfixe(racine->gauche);
+        printf("ID: %d, Ville: %s\n", racine->trajet.id, racine->trajet.ville);
+        parcoursInfixe(racine->droite);
+    }
+}
+
 int max(int a, int b) {
     return (a > b) ? a : b;
 }
