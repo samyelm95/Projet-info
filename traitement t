@@ -253,6 +253,7 @@ int main(int argc, char *argv[]) {
         int j=0;
         ville* pliste=NULL;
         for(int i=0;i<nombre_etapes;i++){
+            AVLville *(p1[nombre_etapes].ville_depart);
             *(p1[nombre_etapes].ville_depart)=insert((p1[nombre_etapes].ville_depart),p1[nombre_etapes]->id_trajet,a);
             *(p1[nombre_etapes].ville_arrivee)=insert((p1[nombre_etapes].ville_arrivee), p1[nombre_etapes]->id_trajet,b);
             pliste=insertliste(pliste,(p1[nombre_etapes].ville_depart));
