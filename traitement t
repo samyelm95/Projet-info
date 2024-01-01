@@ -169,7 +169,7 @@ int compterDépart(Noeud *racine){
 };
 
 // Fonction pour compter le nombre de nœuds dans un arbre AVL
-int compterNoeuds(Noeud *racine) {
+int compterNoeuds(AVLville *racine) {
     if (racine == NULL) {
         return 0;
     }
@@ -209,8 +209,7 @@ int main(int argc, char *argv[]) {
         }
         Etape *p1 = NULL;
         int nombre_etapes = 0;
-        while (fscanf(fichier, "%d,%49[^,],%49[^,],%d\n", &p1[nombre_etapes].id_trajet, p1[nombre_etapes].ville_depart, p1[nombre_etapes].ville_arrivee,
-                      &p1[nombre_etapes].est_depart) == 4) {
+        while (fscanf(fichier, "%d,%49[^,],%49[^,],%d\n", &p1[nombre_etapes].id_trajet, p1[nombre_etapes].ville_depart, p1[nombre_etapes].ville_arrivee == 3) {
             nombre_etapes++;
             p1 = realloc(p1, (nombre_etapes + 1) * sizeof(Etape));
             if (p1 == NULL) {
@@ -236,13 +235,14 @@ int main(int argc, char *argv[]) {
         
         while(pliste!=NULL){
             ville* tmp=pliste;
-            k=compterNoeuds(AVLville* pliste->char);
+            k=compterNoeuds(AVLville* pliste->ville);
             l=compterDépart(AVLville* pliste->char);
             l1=insert_stat(l1;pliste->char,k,l);
             tmp=tmp->next;
         };
         Ville Top10[10]=NULL;
-        Ville* tmp1=l1;
+        Ville* tmp1=NULL;
+        tmp1=l1;
         for (i=0;i<10;i++){
             Top10[i]->nom=tmp1->nom;
             Top10[i]->departs=tmp1->departs;
