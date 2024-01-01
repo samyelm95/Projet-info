@@ -86,7 +86,19 @@ int compterNoeuds(Noeud *racine) {
     return 1 + compterNoeuds(racine->gauche) + compterNoeuds(racine->droite);
 }
 
+void desalouerVille(Ville* l1){
+    while (l1 != NULL) {
+        Ville *aLiberer = l1;
+        l1 = l1->next;
+        free(aLiberer);
+};
 
+void desalouerville(ville* l1){
+    while (l1 != NULL) {
+        Ville *aLiberer = l1;
+        l1 = l1->next;
+        free(aLiberer);
+};
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
@@ -143,10 +155,14 @@ int main(int argc, char *argv[]) {
             tmp1=tmp1->next;
         };
         return Top10;
-        
+        desalouerVille(pliste);
+        desalouerville(l1);
         free(p1);  // Libérer la mémoire allouée
         fclose(fichier);  // Fermer le fichier
-    } else if (option == 's') {
+   
+
+
+} else if (option == 's') {
         FILE *fichier = fopen(fichier_csv, "r");
         if (fichier == NULL) {
             fprintf(stderr, "Erreur d'ouverture du fichier.\n");
