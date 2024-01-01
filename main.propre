@@ -3,14 +3,6 @@
 #include "trajet.h"
 #include "avl.c"
 
-void parcoursInfixe(Noeud *racine) {
-    if (racine != NULL) {
-        parcoursInfixe(racine->gauche);
-        printf("ID: %d, Ville: %s\n", racine->trajet.id, racine->trajet.ville);
-        parcoursInfixe(racine->droite);
-    }
-}
-
 typedef struct{
     char ville[50];
     struct ville* pnext;
