@@ -42,14 +42,15 @@ typedef struct {
 
 //fonction insertion ville liste des villes
 ville* insertionville(ville* pliste, char vil){
-    if (pliste!){
-        pliste->ville=vil;
-        pliste->next=NULL;
-        return pliste;
-    }else if(pliste->ville=ville){
+    ville* tmp=pliste;
+    if (tmp!){
+        tmp->ville=vil;
+        tmp->next=NULL;
+        return tmp;
+    }else if(tmp->ville=ville){
         exit(1);
     }else{
-        pliste=pliste->next
+        tmp=tmp->next
     };
  };
 
@@ -85,7 +86,7 @@ int compterNoeuds(Noeud *racine) {
     return 1 + compterNoeuds(racine->gauche) + compterNoeuds(racine->droite);
 }
 
-// ... Autres fonctions pour AVL, tri, etc.
+
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
@@ -125,17 +126,24 @@ int main(int argc, char *argv[]) {
         Ville* l1=NULL;
         int k=0;
         int l=0;
+        
         while(pliste!=NULL){
+            ville* tmp=pliste;
             k=compterNoeuds(AVLville* pliste->char);
             l=compterDépart(AVLville* pliste->char);
             l1=insert_stat(l1;pliste->char,k,l);
-            pliste=pliste->next;
+            tmp=tmp->next;
         };
+        Ville Top10[10]=NULL;
+        Ville* tmp1=l1;
+        for (i=0,i<10,i++){
+            Top10[i]->nom=tmp1->nom;
+            Top10[i]->departs=tmp1->departs;
+            Top10[i]->trajet_total=tmp1->trajet_total;
+            tmp1=tmp1->next;
+        };
+        return Top10;
         
-        
-    
-        // Programme suite
-
         free(p1);  // Libérer la mémoire allouée
         fclose(fichier);  // Fermer le fichier
     } else if (option == 's') {
