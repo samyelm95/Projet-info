@@ -1,5 +1,5 @@
 // Structure AVL pour les villes
-typedef struct {
+typedef struct AVLville {
     int id_trajet;
     int d;
     int hauteur;
@@ -64,7 +64,7 @@ AVLville *insert(AVLville *root, int id_trajet, int a) {
         }
     }
 
-AVLNode *rotateRight(AVLNode *y) {
+AVLville *rotateRight(AVLNode *y) {
     AVLville *x = y->gauche;
     AVLville *T2 = x->droite;
 
@@ -144,6 +144,36 @@ ville* insertionville(ville* pliste, char vil){
     };
  };
 
+//Fonction insertion liste par ordre décroissant des villes les plus traversées
+Ville *insert_stat(Ville* l1;char pliste->ville,int k,int l){
+    Ville *tmp=NULL;
+    tmp=l1;
+    Ville* new = (Ville*)malloc(sizeof(ville));
+    if (new == NULL) {
+        perror("Erreur d'allocation mémoire");
+        exit(EXIT_FAILURE);
+    };
+    new->nom=pliste->ville;
+    new->trajet_total=k;
+    new->depart=l;
+    if(tmp=NULL){
+        new->next=NULL;
+        l1->next=new;
+        return l1;
+    };
+    if(l1! && k>=l1->trajet_total){
+        new->next=l1->next;
+        l1->next=new;
+        return l1;
+    };
+    while (tmp->next !=NULL && tmp->next->trajet_total>k){
+        tmp=tmp->next;
+    };
+    new->next=tmp->next;
+    tmp->next=new;
+    return l1;
+};
+
 //Fonction compter nombre villes diff
 int nombre_chainon(ville* pliste){
     int v=0;
@@ -219,11 +249,10 @@ int main(int argc, char *argv[]) {
         }
         int a=1;
         int b=0;
-        
+        int i=0;
+        int j=0;
         ville* pliste=NULL;
         for(int i=0;i<nombre_etapes;i++){
-            
-            if (
             *(p1[nombre_etapes].ville_depart)=insert(AVLville *(p1[nombre_etapes].ville_depart), int p1[nombre_etapes]->id_trajet,int a);
             *(p1[nombre_etapes].ville_arrivee)=insert(AVLville *(p1[nombre_etapes].ville_arrivee), int p1[nombre_etapes]->id_trajet,int b);
             pliste=insertliste(pliste,(p1[nombre_etapes].ville_depart));
@@ -243,10 +272,10 @@ int main(int argc, char *argv[]) {
         Ville Top10[10]=NULL;
         Ville* tmp1=NULL;
         tmp1=l1;
-        for (int i=0;i<10;i++){
-            Top10[i]->nom=tmp1->nom;
-            Top10[i]->departs=tmp1->departs;
-            Top10[i]->trajet_total=tmp1->trajet_total;
+        for (int j=0;j<10;j++){
+            Top10[j]->nom=tmp1->nom;
+            Top10[j]->departs=tmp1->departs;
+            Top10[j]->trajet_total=tmp1->trajet_total;
             tmp1=tmp1->next;
         };
         desalouerVille(pliste);
