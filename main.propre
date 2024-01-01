@@ -11,6 +11,13 @@ void parcoursInfixe(Noeud *racine) {
     }
 }
 
+typedef struct AVLNode {
+    Etape a;
+    struct AVLNode *left;
+    struct AVLNode *right;
+    int height;
+} AVLetape;
+
 // Structure pour représenter une étape
 typedef struct {
     int id_trajet;
