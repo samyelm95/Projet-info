@@ -3,13 +3,16 @@
 #include "trajet.h"
 #include "avl.c"
 
+//structure liste des différentes villes
 typedef struct{
     char ville[50];
     struct ville* pnext;
 }ville;
 
+//structure AVL
 typedef struct {
     Etape a;
+    int d;
     struct AVLNode *left;
     struct AVLNode *right;
     int height;
@@ -37,7 +40,7 @@ typedef struct {
     int distance;
 } Distance;
 
-//fonction insertion ville
+//fonction insertion ville liste des villes
 ville* insertionville(ville* pliste, char vil){
     if (pliste!){
         pliste->ville=vil;
@@ -50,7 +53,7 @@ ville* insertionville(ville* pliste, char vil){
     };
  };
 
-//Fonction compter nombre chainon liste
+//Fonction compter nombre villes diff
 int nombre_chainon(ville* pliste){
     int v=0;
     while(pliste!=NULL){
@@ -123,8 +126,8 @@ int main(int argc, char *argv[]) {
         int k=0;
         int l=0;
         while(pliste!=NULL){
-            k=compterNoeuds(AVL* pliste->char);
-            l=compterDépart(AVL* pliste->char);
+            k=compterNoeuds(AVLville* pliste->char);
+            l=compterDépart(AVLville* pliste->char);
             l1=insert_stat(l1;pliste->char,k,l);
             pliste=pliste->next;
         };
