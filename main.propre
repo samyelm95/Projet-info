@@ -11,19 +11,18 @@ void parcoursInfixe(Noeud *racine) {
     }
 }
 
-typedef struct AVLNode {
+typedef struct {
     Etape a;
     struct AVLNode *left;
     struct AVLNode *right;
     int height;
-} AVLetape;
+} AVLville;
 
 // Structure pour représenter une étape
 typedef struct {
     int id_trajet;
     char ville_depart[50];
     char ville_arrivee[50];
-    int est_depart;
 } Etape;
 
 // Structure pour représenter une ville avec le nombre de trajets total et le nombre de départs
@@ -76,7 +75,8 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
         }
-        
+        for(i=0,i<nombre_etapes,i++){
+            if(
         // Programme suite
 
         free(p1);  // Libérer la mémoire allouée
