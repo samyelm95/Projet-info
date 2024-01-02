@@ -20,8 +20,8 @@ typedef struct{
 // Structure pour représenter une étape
 typedef struct {
     int id_trajet;
-    AVLville* ville_depart[50];
-    AVLville* ville_arrivee[50];
+    char ville_depart[50];
+    char ville_arrivee[50];
 } Etape;
 
 // Structure pour représenter une ville avec le nombre de trajets total et le nombre de départs
@@ -268,13 +268,15 @@ int main(int argc, char *argv[]) {
         int i=0;
         int j=0;
         ville* pliste=NULL;
-        for(int i=0;i<nombre_etapes;i++){
-            AVLville *variableAVL = p1[nombre_etapes].ville_depart;
-            *(p1[nombre_etapes].ville_depart)=insert((p1[nombre_etapes].ville_depart),p1[nombre_etapes].id_trajet,a);
-            *(p1[nombre_etapes].ville_arrivee)=insert((p1[nombre_etapes].ville_arrivee), p1[nombre_etapes].id_trajet,b);
-            pliste=insertionville(pliste,(p1[nombre_etapes].ville_depart));
-            pliste=insertionville(pliste,(p1[nombre_etapes].ville_arrivee));
-        };
+        for(int i = 0; i < nombre_etapes; i++) {
+            AVLville *arbreVilleDepart = NULL;
+            AVLville *arbreVilleArrivee = NULL;
+            arbreVilleDepart = insert(arbreVilleDepart, p1[i].id_trajet, a);
+            arbreVilleArrivee = insert(arbreVilleArrivee, p1[i].id_trajet, b);
+            pliste = insertionville(pliste, arbreVilleDepart);
+            pliste = insertionville(pliste, arbreVilleArrivee);
+        }
+
         Ville* l1=NULL;
         int k=0;
         int l=0;
