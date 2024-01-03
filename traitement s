@@ -190,9 +190,4 @@ int main(int argc, char *argv[]) {
     char option = argv[1][0];
     char *fichier_csv = argv[2];
 
-
-        free(p1);  // Libérer la mémoire allouée
-        fclose(fichier);  // Fermer le fichier
-        return 0;
-    };
 };
