@@ -189,5 +189,30 @@ int main(int argc, char *argv[]) {
 
     char option = argv[1][0];
     char *fichier_csv = argv[2];
+else if (option == 's') {
+        FILE *fichier = fopen(fichier_csv, "r");
+        if (fichier == NULL) {
+            fprintf(stderr, "Erreur d'ouverture du fichier.\n");
+            return 1;
+        }
+        Trajet *p1 = NULL;
+        int nombre_trajets = 0;
+        while (fscanf(fichier, "%d,%d,%d\n", &p1[nombre_trajets].id_trajet, &p1[nombre_trajets].id_etape, &p1[nombre_trajets].est_depart) == 3) {
+            nombre_trajets++;
+            p1 = realloc(p1, (nombre_trajets + 1) * sizeof(Trajet));
+            if (p1 == NULL) {
+                fprintf(stderr, "Erreur d'allocation de mémoire.\n");
+                return 1;
+            }
+        }
+        // Programme suite
 
+        free(p1);  // Libérer la mémoire allouée
+        fclose(fichier);  // Fermer le fichier
+    } else {
+        fprintf(stderr, "Option non reconnue.\n");
+        return 1;
+    }
+
+    return 0;
 };
