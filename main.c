@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "trajet.h"
-#include "avl.c"
+#include "fonction_t.c"
+#include "fonction_s.c"
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
