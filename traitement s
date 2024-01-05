@@ -241,6 +241,35 @@ AVLNode* suppMin(AVLNode* root) {
     return root;
 }
 
+//Fonctio1n compter nombre chainons
+int countNodes(AVLNode* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
+
+\\parcours ordre decroissant
+void parcours(AVLNode* root) {
+    if (root != NULL) {
+        parcours(root->right); 
+        printf("Max: %.2f, Min: %.2f, Moyenne: %.2f\n", root->data->max, root->data->min, root->data->moyenne\root->data->v);
+        parcours(root->left);  
+    }
+}
+
+//supp trajet_stats
+void supplist(trajet_stats* head) {
+    trajet_stats* current = head;
+    trajet_stats* next;
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+}
+
+
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <option> <fichier.csv>\n", argv[0]);
@@ -279,16 +308,11 @@ else if (option == 's') {
         while(nombrechainon(ordre)>50){
             ordre=suppMin(ordre);
         };
-        parcourinfixe(ordre);
-
-        faire une liste chainee pour la moyenne
-            une pour le min 
-            une pour le max
-        remplire la structure trajet_stat en lisant chacune des listes
-        creer un avl trajet_stat
-        retourner 50 plus grandes valeur ou supp jusqua en garder 50
-        
-
+        parcours(ordre);
+        suppliste(m);// libérer mémoire allouée à la liste
+        while(nombrechainon(ordre)>0){
+            ordre=suppMin(ordre);
+        }; // supprimer l'avl 
         free(p1);  // Libérer la mémoire allouée
         fclose(fichier);  // Fermer le fichier
     } else {
