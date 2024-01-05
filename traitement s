@@ -1,30 +1,38 @@
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 // Structure pour représenter la distance d'une étape
 typedef struct {
     int id_trajet; 
     float distance;
-} Distance;
+} distance;
 
 
 typedef struct{
     int id_trajet;
-    float moyenne;
+    float distance;
     int v;
+    float moyenne;
     float max;
     float min;
-    struct *trajet_stats next;
+    struct trajet_stats* next;
 }trajet_stats;
 
-\\création chainon moyenne
-trajet_stats creer(distance p1[nombre_trajets]){
-    trajet_stats a;
-    a=malloc(sizeof(moyenn));
+
+
+//création chainon trajet_stats
+trajet_stats* creer(distance p1[],int nombre_trajets){
+    trajet_stats* a;
+    a=malloc(sizeof(trajet_stats));
     if(a==NULL){
         exit(1);
     }else{
         a->id_trajet=p1[nombre_trajets].id_trajet;
         a->distance=p1[nombre_trajets].distance;
-        a->v=0;
+        a->v=1;
+        a->moyenne=a->distance/a->v;
         a->max=p1[nombre_trajets].distance;
         a->min=p1[nombre_trajets].distance;
         a->next=NULL;
@@ -32,18 +40,19 @@ trajet_stats creer(distance p1[nombre_trajets]){
     return a;
 };
 
-\\insertion liste moyenne par id trajet
-trajet_stats *insertstat(trajet_stats *m,distance p1[nombre_trajets]){ 
-        trajet_stats *tmp;
+//insertion liste moyenne par id trajet
+trajet_stats *insertstat(trajet_stats *m,distance p1[],int nombre_trajets){ 
+        trajet_stats* tmp;
         tmp=m;
         if(tmp==NULL){
-             trajet_stats a;
-             a=creer(p1[nombre_trajets]);
+             trajet_stats* a;
+             a=creer(p1,nombre_trajets);
              tmp->next=a;
              return m;
-        else if(tmp->id_trajet=p1[nombre_trajets].id_trajet){
+        }else if(tmp->id_trajet=p1[nombre_trajets].id_trajet){
              tmp->distance=tmp->distance+p1[nombre_trajets].distance;
              tmp->v++;
+             tmp->moyenne=tmp->distance/tmp->v;
              if(p1[nombre_trajets].distance<tmp->min){
                 tmp->min=p1[nombre_trajets].distance;
              }else if(p1[nombre_trajets].distance>tmp->max){
@@ -51,10 +60,10 @@ trajet_stats *insertstat(trajet_stats *m,distance p1[nombre_trajets]){
              };
              return m;
         }else if (tmp->id_trajet>p1[nombre_trajets].id_trajet){
-             tmp=*insertmoy(tmp->next,p1[nombre_trajets]);
+             tmp=insertstat(tmp->next,p1,nombre_trajets);
         }else{
-             moyenne a;
-             a=creermoy(p1[nombre_trajets]);
+             trajet_stats* a;
+             a=creer(p1,nombre_trajets);
              a->next=tmp->next;
              tmp->next=a;
              return m;
@@ -242,24 +251,26 @@ AVLNode* suppMin(AVLNode* root) {
 }
 
 //Fonctio1n compter nombre chainons
-int countNodes(AVLNode* root) {
+int nombrechainon(AVLNode* root) {
     if (root == NULL) {
         return 0;
     }
-    return 1 + countNodes(root->left) + countNodes(root->right);
+    return 1 + nombrechainon(root->left) + nombrechainon(root->right);
 }
 
-\\parcours ordre decroissant
+//parcours ordre decroissant
 void parcours(AVLNode* root) {
     if (root != NULL) {
-        parcours(root->right); 
-        printf("Max: %.2f, Min: %.2f, Moyenne: %.2f\n", root->data->max, root->data->min, root->data->moyenne\root->data->v);
+        parcours(root->right);
+        float c;
+        c=root->data->distance/root->data->v;
+        printf("Max: %.2f, Min: %.2f, Moyenne: %.2f\n", root->data->max, root->data->min,c) ;
         parcours(root->left);  
     }
 }
 
 //supp trajet_stats
-void supplist(trajet_stats* head) {
+void suppliste(trajet_stats* head) {
     trajet_stats* current = head;
     trajet_stats* next;
     while (current != NULL) {
@@ -268,57 +279,62 @@ void supplist(trajet_stats* head) {
         current = next;
     }
 }
-
-
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <option> <fichier.csv>\n", argv[0]);
         return 1;
     }
-
+    int nombre_trajets = 0;
     char option = argv[1][0];
     char *fichier_csv = argv[2];
-else if (option == 's') {
+
+    if (option == 's') {
         FILE *fichier = fopen(fichier_csv, "r");
         if (fichier == NULL) {
             fprintf(stderr, "Erreur d'ouverture du fichier.\n");
             return 1;
         }
-        Distance *p1 = NULL;
+
+        distance *p1= NULL;
         int nombre_trajets = 0;
         while (fscanf(fichier, "%d,%f\n", &p1[nombre_trajets].id_trajet, &p1[nombre_trajets].distance) == 2) {
             nombre_trajets++;
-            p1 = realloc(p1, (nombre_trajets + 1) * sizeof(Trajet));
+            p1 = realloc(p1, (nombre_trajets + 1) * sizeof(distance));
             if (p1 == NULL) {
                 fprintf(stderr, "Erreur d'allocation de mémoire.\n");
                 return 1;
-        
-        } 
-        trajet_stats* m;
-        for(int i=0;i<nombre_trajets;i++){
-            m=insertmoy(m,p1[nombre_trajets]);
-        };
-        AVLNode *ordre;
-        trajet_stats *tmp;
-        tmp=m;
-        while(tmp!=NULL){
-            ordre=insertAVL(ordre,tmp);
-            tmp=tmp->next;
-        };
-        while(nombrechainon(ordre)>50){
-            ordre=suppMin(ordre);
-        };
+            }
+        }
+
+        trajet_stats* m = NULL;
+        for (int i = 0; i < nombre_trajets; i++) {
+            m = insertstat(m, p1,i);
+        }
+
+        AVLNode *ordre = NULL;
+        trajet_stats *tmp = m;
+        while (tmp != NULL) {
+            ordre = insertAVL(ordre, tmp);
+            tmp = tmp->next;
+        }
+
+        while (nombrechainon(ordre) > 50) {
+            ordre = suppMin(ordre);
+        }
+
         parcours(ordre);
-        suppliste(m);// libérer mémoire allouée à la liste
-        while(nombrechainon(ordre)>0){
-            ordre=suppMin(ordre);
-        }; // supprimer l'avl 
-        free(p1);  // Libérer la mémoire allouée
-        fclose(fichier);  // Fermer le fichier
+        suppliste(m); // Libérer mémoire allouée à la liste
+
+        while (nombrechainon(ordre) > 0) {
+            ordre = suppMin(ordre);
+        } // Supprimer l'AVL
+
+        free(p1);      // Libérer la mémoire allouée
+        fclose(fichier); // Fermer le fichier
     } else {
         fprintf(stderr, "Option non reconnue.\n");
         return 1;
     }
 
     return 0;
-};
+}
