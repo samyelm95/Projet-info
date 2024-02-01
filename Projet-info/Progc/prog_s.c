@@ -7,7 +7,8 @@
 typedef struct _arbre {
   struct _arbre *fg;
   struct _arbre *fd;
-  int id_Trajet;
+  int id_trajet;
+  int nb_trajet;
   int distance;
   int eq;
   int min;
@@ -16,10 +17,11 @@ typedef struct _arbre {
 } Arbre;
 
 // structure de la liste qui trie les noeud de l'AVL
-typedef struct _liste{
-  Arbre *noeud;
-  struct *liste next;
-}liste; 
+typedef struct _liste {
+    Arbre *noeud;
+    struct _liste *next;
+} liste;
+ 
 
 
 int max(int a, int b) {
@@ -38,7 +40,7 @@ int min2(int a, int b, int c) {
 }
 
 //Rempilssage de l'AVL avec les données du data.csv 
-Arbre *creerArbre(id_trajet, int distance) {
+Arbre *creerArbre(int id_trajet, int distance) {
   Arbre *avl = malloc(sizeof(Arbre));
   avl->nb_trajet = 1;
   avl->eq = 0;
@@ -115,13 +117,13 @@ Arbre *insertion(Arbre *avl, int id_trajet, int distance, int *h) {
         avl->eq--;
         avl = equilibreAvl(avl);
     } else if (id_trajet > avl->id_trajet) {
-        avl->fd = insertion(avl->fd, nom, ville, id_trajet, id_depart, h);
+        avl->fd = insertion(avl->fd, id_trajet,distance, h);
         avl->eq++;
         avl = equilibreAvl(avl);
     } else {
         *h = 0;
         avl->nb_trajet ++;
-        avl->dsitance=avl->dsitance+distance;
+        avl->distance=avl->distance+distance;
         avl->moy=distance/avl->nb_trajet;
         if (avl->max<distance){
           avl->max=distance;
@@ -139,24 +141,24 @@ liste* insert_liste(liste* p1,Arbre* avl){
   liste *tmp;
   liste *new;
   tmp=p1;
-  if (*liste == NULL || avl->noeud->max > p1->noeud->max) {
-        new=mallocsizeof(liste);
+  if (p1 == NULL || avl->max > p1->noeud->max) {
+        new = (liste *)malloc(sizeof(liste));
         new->noeud=avl;
         new->next = p1->next;
-        *p1 = nouveau;
+        p1 = new;
     } else {
-        while (tmp->next != NULL && tmp->next->noeud->max > avl->noeud->max) {
+        while (tmp->next != NULL && tmp->next->noeud->max > avl->max) {
             tmp = tmp->next;
         }
-        if(tmp->next->noeud->max = avl->noeud->max){
-          if(tmp->next->noeud->min>avl->noeud->min){
-            new=mallocsizeof(liste);
+        if(tmp->next->noeud->max = avl->max){
+          if(tmp->next->noeud->min>avl->min){
+            new = (liste *)malloc(sizeof(liste));
             new->noeud=avl;
             new->next = tmp->next;
             tmp->next = new;
           }else{
             tmp=tmp->next;
-            new=mallocsizeof(liste);
+            new = (liste *)malloc(sizeof(liste));
             new->noeud=avl;
             new->next = tmp->next;
             tmp->next = new;
@@ -178,25 +180,25 @@ void afficherTop50(liste *p1, int nombreElements) {
     liste *tmp = p1;
     int i = 0;
     while (tmp != NULL && i < nombreElements) {
-        printf("%d ", tmp->noeud->max,tmp->noeud->min,tmp->noeud->moy);
+        printf("%d,%d,%f/n ", tmp->noeud->max,tmp->noeud->min,tmp->noeud->moy);
         tmp = tmp->next;
         i++;
     }
     printf("\n");
 }
 
-void libérermémoire(liste *p1) {
-    liste *tmp = p1
+void libererMemoire(liste *p1) {
+    liste *tmp = p1;
     liste *next;
 
     while (tmp != NULL) {
-        next = tmp->next;
+        next= tmp->next;
         free(tmp->noeud);
         free(tmp);
         tmp = next;
     }
 
-    *p1 = NULL; // La tête de la liste est maintenant NULL car la liste est vide
+    p1 = NULL; // La tête de la liste est maintenant NULL car la liste est vide
 }
 
 int main() {
@@ -204,14 +206,14 @@ int main() {
   int id_trajet;
   Arbre *avl = NULL;
   liste* p1;
-  int h = 0;
+  int* h = 0;
 
   while (scanf("%d;%d\n", &id_trajet, &distance)==2) {
       avl=insertion(avl,id_trajet,distance,h);
   };
-  p1=parcours_scan(avl);
+  parcours_scan(avl);
   afficherTop50(p1,50);
-  libererMemoireArbre(p1);
+  libererMemoire(p1);
 
   return 0;
 }
