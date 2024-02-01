@@ -1,13 +1,6 @@
 #!/bin/bash
-# Création des fichiers nécessaires !
-fichier_trajets="Data/data.csv"
-fichier_resultats2="Demo/Resultat_s2.txt"
-fichier_resultats="Demo/Resultat_s.txt"
-
-cut -d';' -f1,5 "$fichier_trajets" | tail -n +2  | sort -t';' -k1,1n | sed 's/;/ /g'> $fichier_resultats
-./Progc/prog_s
-sed -i '1d' $fichier_resultats
-)
+# Création des fichiers nécessaires 
+fichier_resultats="Demo/prog_s.csv"
 
 
 # Utilisation de gnuplot
