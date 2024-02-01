@@ -21,7 +21,7 @@ verification() {
             echo "L'exécutable $exe n'existe pas."
             echo "Compilation de $exe en cours ..."
         #gcc Progc/prog_t.c -o Progc/prog_t
-            
+            echo "Compilation réussie"
         fi
     done
     for exe in "$exe_prog_s"; do
@@ -29,7 +29,7 @@ verification() {
             echo "L'exécutable $exe n'existe pas."
             echo "Compilation de $exe en cours ..."
         #gcc Progc/prog_s.c -o Progc/prog_s
-            
+            echo "Compilation réussie"
         fi
     done
 
@@ -88,7 +88,7 @@ prog_t() {
 Affichage du graphique en cours ..."
     # lancer les vérifications et le traitement demandé
     verification;
-    tail -n +2 Data/data.csv | cut -d';' -f1,2,3,4 | "$exe_prog_t" > Demo/prog_t.csv
+    tail -n +2 Data/data.csv | cut -d';' -f1,2,3,4 | "$exe_prog_t" > Demo/demo-t.csv
     ./Progc/prog_t.sh
 }
 
