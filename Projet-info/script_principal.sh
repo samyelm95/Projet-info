@@ -88,7 +88,7 @@ prog_t() {
 Affichage du graphique en cours ..."
     # lancer les vérifications et le traitement demandé
     verification;
-    tail -n +2 Data/data.csv | cut -d';' -f1,2,3,4 | "$exe_prog_t" > Demo/demo-t.csv
+    tail -n +2 Data/data.csv | cut -d';' -f1,2,3,4 | "$exe_prog_t" > Demo/prog_t.csv
     ./Progc/prog_t.sh
 }
 
