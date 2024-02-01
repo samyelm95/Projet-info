@@ -2,14 +2,14 @@
 
 #chemin des fichiers 
 fichier_trajets="Data/data.csv"
-fichier_resultats="Demo/prog_l.txt"
+fichier_resultats="Demo/resultat.txt"
 
 # Tri des trajets par identifiant croissant
 sort -t';' -k1,1n "$fichier_trajets" | \
 # Traitement L : les 10 trajets les plus longs
 awk -F ';' '{distances[$1]+=$5} END {for (route_id in distances) print distances[route_id], route_id}' | \
 sort -nr | head -n 10 > "$fichier_resultats"
-sort -k2,2nr -o Temp/resultat_f.txt Temp/resultat_f.txt
+sort -k2,2nr -o Demo/resultat.txt Demo/resultat.txt
 
 
 # Utilisation de gnuplot pour la création du graphe
@@ -25,5 +25,5 @@ set output 'Image/histogramme_l.png'
 
 plot '$fichier_resultats' using 1:xtic(2) with boxes lc rgbcolor 'red' notitle
 EOF
-chmod 777 Image/histogramme_l.png
+
 xdg-open Image/histogramme_l.png
