@@ -21,7 +21,9 @@ verification() {
             echo "L'exécutable $exe n'existe pas."
             echo "Compilation de $exe en cours ..."
         #gcc Progc/prog_t.c -o Progc/prog_t
-            echo "Compilation réussie"
+            if [ ! -x "$exe" ]; then
+            echo "Compilation non réussie"
+            fi
         fi
     done
     for exe in "$exe_prog_s"; do
@@ -30,6 +32,9 @@ verification() {
             echo "Compilation de $exe en cours ..."
         #gcc Progc/prog_s.c -o Progc/prog_s
             echo "Compilation réussie"
+            if [ ! -x "$exe" ]; then
+            echo "Compilation non réussie"
+            fi
         fi
     done
 
