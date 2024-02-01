@@ -1,4 +1,4 @@
-Veuillez en premier lieu télécharger le document data.csv et le placer dans le fichier Data
+Veuillez en premier lieu télécharger le document data.csv et le placer dans le fichier Data. Ne prêtez pas attention au fichier présent dans Data (si l'on met aucun fichier dans un dossier, git hub le supprime. Nous avons donc décidé d'en mettre au moins 1)
 Après cela, allez dans le terminal et placez vous dans dans le fichier Progc.
 Tapez la commande "make build" afin de compiler les fichiers nécéssaires.
 Continuez en tapant "make droit" afin d'avoir les autorisations nécessaires.
