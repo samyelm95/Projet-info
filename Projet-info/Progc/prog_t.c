@@ -56,12 +56,13 @@ Arbre *creerArbre(char nom[35], int ville, int id_trajet, int id_depart) {
   if (id_depart == 1) {
     avl->nb_trajet_depart = 1;
   }
+  // Création du premier noeud Trajet dans l'arbre
   avl->pTrajet = creerTrajet(id_trajet);
   avl->fg = NULL;
   avl->fd = NULL;
   return avl;
 }
-
+// Fonction pour effectuer une rotation gauche dans l'arbre AVL
 Arbre *rotationGauche(Arbre *avl) {
   Arbre *pivot = avl->fd;
   avl->fd = pivot->fg;
@@ -75,7 +76,7 @@ Arbre *rotationGauche(Arbre *avl) {
 
   return pivot;
 }
-
+// Fonction pour effectuer une rotation droite dans l'arbre AVL
 Arbre *rotationDroite(Arbre *avl) {
   Arbre *pivot = avl->fg;
   avl->fg = pivot->fd;
@@ -89,17 +90,17 @@ Arbre *rotationDroite(Arbre *avl) {
 
   return pivot;
 }
-
+// Fonction pour effectuer une double rotation gauche-droite dans l'arbre AVL
 Arbre *rotationDoubleGauche(Arbre *avl) {
   avl->fd = rotationDroite(avl->fd);
   return rotationGauche(avl);
 }
-
+// Fonction pour effectuer une double rotation droite-gauche dans l'arbre AVL
 Arbre *rotationDoubleDroite(Arbre *avl) {
   avl->fg = rotationGauche(avl->fg);
   return rotationDroite(avl);
 }
-
+// Fonction pour effectuer une rotation gauche dans le sous-arbre Trajet
 Trajet *rotationGauche_trajet(Trajet *trajet) {
   Trajet *pivot = trajet->fd;
   trajet->fd = pivot->fg;
@@ -114,6 +115,7 @@ Trajet *rotationGauche_trajet(Trajet *trajet) {
   return pivot;
 }
 
+// Fonction pour effectuer une rotation droite dans le sous-arbre Trajet
 Trajet *rotationDroite_trajet(Trajet *trajet) {
   Trajet *pivot = trajet->fg;
   trajet->fg = pivot->fd;
@@ -127,17 +129,17 @@ Trajet *rotationDroite_trajet(Trajet *trajet) {
 
   return pivot;
 }
-
+// Fonction pour effectuer une double rotation gauche-droite dans le sous-arbre 
 Trajet *rotationDoubleGauche_trajet(Trajet *trajet) {
   trajet->fd = rotationDroite_trajet(trajet->fd);
   return rotationGauche_trajet(trajet);
 }
-
+// Fonction pour effectuer une double rotation droite-gauche dans le sous-arbre 
 Trajet *rotationDoubleDroite_trajet(Trajet *trajet) {
   trajet->fg = rotationGauche_trajet(trajet->fg);
   return rotationDroite_trajet(trajet);
 }
-
+//Fonction pour rééquilibrer l'arbre AVL après une insertion
 Arbre *equilibreAvl(Arbre *avl) {
   if (avl->eq >= 2) {
     if (avl->fd->eq >= 0) {
@@ -154,7 +156,7 @@ Arbre *equilibreAvl(Arbre *avl) {
   }
   return avl;
 }
-
+// Fonction pour rééquilibrer le sous-arbre Trajet après une insertion
 Trajet *equilibreTrajet(Trajet *trajet) {
   if (trajet->eq >= 2) {
     if (trajet->fd->eq >= 0) {
@@ -171,7 +173,7 @@ Trajet *equilibreTrajet(Trajet *trajet) {
   }
   return trajet;
 }
-
+// Fonction pour insérer un nouvel élément dans l'arbre AVL
 Arbre *insertion(Arbre *avl, char nom[35], int ville, int id_trajet, int id_depart, int *h) {
     if (avl == NULL) {
         *h = 1;
@@ -191,7 +193,7 @@ Arbre *insertion(Arbre *avl, char nom[35], int ville, int id_trajet, int id_depa
     return avl;
 }
 
-
+// Fonction pour insérer un nouveau Trajet dans le sous-arbre Trajet
 Trajet *insertion_trajet(Trajet *trajet, int id_trajet, int *h) {
     if (trajet == NULL) {
         *h = 1;
@@ -211,6 +213,7 @@ Trajet *insertion_trajet(Trajet *trajet, int id_trajet, int *h) {
     return trajet;
 }
 
+// Fonction pour rechercher un élément dans l'arbre AVL
 Arbre *recherche(Arbre *avl, int id) {
   if (avl == NULL) {
     return NULL;
@@ -222,7 +225,7 @@ Arbre *recherche(Arbre *avl, int id) {
     return recherche(avl->fd, id);
   }
 }
-
+// Fonction pour rechercher un Trajet dans le sous-arbre Trajet
 Trajet *recherche_trajet(Trajet *trajet, int id) {
   if (trajet == NULL) {
     return NULL;
@@ -234,46 +237,50 @@ Trajet *recherche_trajet(Trajet *trajet, int id) {
     return recherche_trajet(trajet->fd, id);
   }
 }
-
+// Fonction pour mettre à jour l'arbre AVL après l'ajout d'un Trajet
 void maj_arbre(Arbre *avl, int id_trajet, int id_etape) {
   if (avl != NULL) {
+     // Mise à jour du nombre de trajets au départ de cette ville
     if (id_etape == 1) {
       avl->nb_trajet_depart += 1;
     }
-
+     // Recherche du Trajet dans le sous-arbre Trajet
     if (recherche_trajet(avl->pTrajet, id_trajet) == NULL) {
+      // Le Trajet n'existe pas, on l'ajoute dans le sous-arbre Trajet
       int h = 0;
       avl->pTrajet = insertion_trajet(avl->pTrajet, id_trajet, &h);
       avl->nb_trajet += 1;
     }
   }
 }
-
+// Fonction pour trouver les 10 villes avec le plus grand nombre de trajets
 void trouverTop10(Arbre *arbre, Arbre *top[], int *index) {
   if (arbre == NULL) {
     return;
   }
-
+  // Parcours en ordre décroissant (droite - racine - gauche)
   trouverTop10(arbre->fd, top, index);
 
   if (*index <10) {
     top[*index] = arbre;
     (*index)++;
   } else {
-
+  // Si le tableau est plein, recherche et remplacement du minimum
     int minIndex = 0;
     for (int i = 1; i <10; i++) {
       if (top[i]->nb_trajet < top[minIndex]->nb_trajet) {
         minIndex = i;
       }
     }
-
+     // Remplacement du minimum si l'élément actuel a un nombre de trajets supérieur
     if (arbre->nb_trajet > top[minIndex]->nb_trajet) {
       top[minIndex] = arbre;
     }
   }
+  // Parcours en ordre décroissant du sous-arbre gauche
   trouverTop10(arbre->fg, top, index);
 }
+// Fonction de hachage pour une chaîne de caractères
 unsigned int hash(char *str) {
   unsigned int hash = 5381;
   int c;
@@ -285,7 +292,7 @@ unsigned int hash(char *str) {
 }
 
 
-
+// Fonction pour comparer deux chaînes de caractères, en ignorant les espaces
 int comparerChaines(const char *chaine1, const char *chaine2) {
   while (*chaine1 && *chaine2) {
 
@@ -316,7 +323,7 @@ int comparerChaines(const char *chaine1, const char *chaine2) {
 
   return 0;
 }
-
+// Fonction de tri pour le tableau top en fonction des noms de villes
 void trierListe(Arbre *top[], int taille) {
   int i, j;
   Arbre *temp;
@@ -333,7 +340,7 @@ void trierListe(Arbre *top[], int taille) {
   }
 }
 
-
+// Fonction pour afficher les 10 villes avec le plus grand nombre de trajets
 void afficherTop10(Arbre *avl) {
   Arbre *top[10];
   for (int i = 0; i <10; i++) {
@@ -351,7 +358,7 @@ void afficherTop10(Arbre *avl) {
     }
   }
 }
-
+// Fonction pour libérer la mémoire occupée par le sous-arbre Trajet
 void libererMemoireTrajet(Trajet *trajet) {
   if (trajet != NULL) {
  
@@ -360,7 +367,7 @@ void libererMemoireTrajet(Trajet *trajet) {
     free(trajet);
   }
 }
-
+// Fonction pour libérer la mémoire occupée par l'arbre AVL
 void libererMemoireArbre(Arbre *avl) {
   if (avl != NULL) {
  
@@ -374,37 +381,42 @@ void libererMemoireArbre(Arbre *avl) {
 }
 
 int main() {
+  //Initialisation des variables qui vont stockés les données en entrée
   char villeA[35];
   char villeB[35];
   int trajet, etape;
   Arbre *avl = NULL;
   int h = 0;
-
+  //recuperation des données
   while (scanf("%d;%d;%[^;];%[^\n]\n", &trajet, &etape, villeA, villeB)==4) {
    
+    //On attribue a chaque ville un identifiant unique ( exemple  : marseille devient 55423) pour pouvoir faire l'AVL
 
       int id_villeA = hash(villeA);
       int id_villeB = hash(villeB);
-
+      //recherche si la première ville en entrée est déjà dans l'arbre ou non
       Arbre *temp1 = recherche(avl, id_villeA);
       if (temp1 == NULL) {
+         //Si la ville n'est pas dans l'arbre, on l'insère dedans
         avl = insertion(avl, villeA, id_villeA, trajet, etape, &h);
       } else {
-        
+        //Si la ville est dans l'arbre, on modifie les informations pour cette ville
         maj_arbre(temp1, trajet, etape);
       }
 
       Arbre *temp2 = recherche(avl, id_villeB);
+    //recherche si la deuxieme ville en entrée est déjà dans l'arbre ou non
       if (temp2 == NULL) {
+        //Si la ville n'est pas dans l'arbre, on l'insère dedans
         avl = insertion(avl, villeB, id_villeB, trajet, 0, &h);
       } else {
-      	
+      	//Si la ville est dans l'arbre, on modifie les informations pour cette ville
         maj_arbre(temp2, trajet, 0);
       }
   }
   
-  afficherTop10(avl);
-  libererMemoireArbre(avl);
+  afficherTop10(avl); //Recherche des 10 villes les plus traverser
+  libererMemoireArbre(avl); //Liberation de la mémoire utilisé pour l'arbre
 
   return 0;
 }
