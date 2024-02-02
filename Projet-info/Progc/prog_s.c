@@ -13,6 +13,7 @@ typedef struct _arbre {
   int eq;
   int min;
   int max;
+  float diff;
   float moy;
 } Arbre;
 
@@ -46,6 +47,7 @@ Arbre *creerArbre(int id_trajet, int distance) {
   avl->eq = 0;
   avl->max=distance;
   avl->min=distance;
+  avl->diff = 0;
   avl->moy=distance/avl->nb_trajet;
   avl->fg = NULL;
   avl->fd = NULL;
@@ -114,12 +116,12 @@ Arbre *insertion(Arbre *avl, int id_trajet, int distance, int *h) {
         return creerArbre(id_trajet, distance);
     } else if (id_trajet < avl->id_trajet) {
         avl->fg = insertion(avl->fg, id_trajet, distance, h);
-        avl->eq--;
-        avl = equilibreAvl(avl);
+       *h = -*h;
+        
     } else if (id_trajet > avl->id_trajet) {
         avl->fd = insertion(avl->fd, id_trajet,distance, h);
-        avl->eq++;
-        avl = equilibreAvl(avl);
+        
+       
     } else {
         *h = 0;
         avl->nb_trajet ++;
@@ -127,15 +129,58 @@ Arbre *insertion(Arbre *avl, int id_trajet, int distance, int *h) {
         avl->moy=distance/avl->nb_trajet;
         if (avl->max<distance){
           avl->max=distance;
-        };
+        }
         if (avl->min>distance){
           avl->min=distance;
-        };
+        }
+        avl->diff = avl->max - avl->min;       
     }
-    
+    if (h*==0){
+        avl->eq = avl->eq + *h;
+        avl = equilibrage(avl);
+        if (a->equilibre == 0){
+            *h = 0;
+        }
+        else {
+          h* = 1;
+        }
     return avl;
 }
 
+
+Arbre *insertionv2(Arbre *avl, Arbre* new, int *h) {
+    Arbre* n  = malloc(sizeof(Arbre));
+    n->nb_trajet = avl->nb_trajet;
+    n->eq = avl->eq 
+    n->max =avl->max
+    n->min = avl->min 
+    n->diff = avl->diff
+    n -> moy = avl->moy
+    n->moy = avl->fg = NULL;
+    n-> moy = avl->fd = NULL;
+    if (avl == NULL) {
+        *h = 1;
+        return n;
+    } else if (n->diff =< avl->diff) {
+        avl->fg = insertionv2(avl->fg, new, h);
+       *h = -*h;
+        
+    } else if (id_trajet > avl->id_trajet) {
+        avl->fd = insertionv2(avl->fd, new, h);
+        
+       
+    }
+    if (h*==0){
+        avl->eq = avl->eq + *h;
+        avl = equilibrage(avl);
+        if (a->equilibre == 0){
+            *h = 0;
+        }
+        else {
+          h* = 1;
+        }
+    return avl;
+}
 //Insertion dans la liste par ordre décroissant en fonction du max et du min de chaque noeud 
 liste* insert_liste(liste* p1,Arbre* avl){
   liste *tmp;
@@ -146,7 +191,7 @@ liste* insert_liste(liste* p1,Arbre* avl){
         new->noeud=avl;
         new->next = p1->next;
         p1 = new;
-    } else {
+  } else {
         while (tmp->next != NULL && tmp->next->noeud->max > avl->max) {
             tmp = tmp->next;
         }
@@ -157,7 +202,7 @@ liste* insert_liste(liste* p1,Arbre* avl){
             new->next = tmp->next;
             tmp->next = new;
           }else{
-            tmp=tmp->next;
+            tmp=tmp->next;0
             new = (liste *)malloc(sizeof(liste));
             new->noeud=avl;
             new->next = tmp->next;
@@ -171,6 +216,13 @@ liste* insert_liste(liste* p1,Arbre* avl){
 void parcours_scan(Arbre* avl){
   liste* p1;
   p1=insert_liste(p1,avl);
+  parcours_scan(avl->fg);
+  parcours_scan(avl->fd);
+};
+
+Arbre* parcours_scanv2(Arbre* avl, Arbre* avl2, int *h){
+  liste* p1;
+  avl = insertionv2(
   parcours_scan(avl->fg);
   parcours_scan(avl->fd);
 };
@@ -205,6 +257,7 @@ int main() {
   int distance;
   int id_trajet;
   Arbre *avl = NULL;
+  Abre *avl2 = NULL;
   liste* p1;
   int* h = 0;
 
