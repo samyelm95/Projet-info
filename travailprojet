@@ -23,5 +23,6 @@ marche pas. Les mises en commun avaient le plus souvent lieu en séance de TD, m
 
 Limitations fonctionnelles :
 
-Le code fonctionne bien, cependant le traitement S ne fonctionne pas. Nous avons essayé de le faire
-marcher sans succès, nous avons souvent une erreur de segmentation sur ce traitement.
+Le code fonctionne bien, cependant le traitement S pose quelques problèmes. En effet, l'affichage gnu plot n'a pas
+pu être terminé à temps par manque d'organisation. Il y a bel et un bien un histogramme mais il ne respecte pas les consinges
+données.
