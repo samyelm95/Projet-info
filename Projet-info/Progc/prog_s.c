@@ -142,7 +142,7 @@ Arbre *insertion(Arbre *avl, int id_trajet, int distance, int *h) {
             *h = 0;
         }
         else {
-          h* = 1;
+          *h = 1;
         }
     return avl;
 }
@@ -170,14 +170,14 @@ Arbre *insertionv2(Arbre *avl, Arbre* new, int *h) {
         
        
     }
-    if (h*==0){
+    if (*h==0){
         avl->eq = avl->eq + *h;
         avl = equilibrage(avl);
         if (a->equilibre == 0){
             *h = 0;
         }
         else {
-          h* = 1;
+          *h = 1;
         }
     return avl;
 }
