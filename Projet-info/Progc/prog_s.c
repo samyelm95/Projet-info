@@ -222,9 +222,10 @@ void parcours_scan(Arbre* avl){
 
 Arbre* parcours_scanv2(Arbre* avl, Arbre* avl2, int *h){
   liste* p1;
-  avl = insertionv2(
+  avl = insertionv2(avl, avl2,h);
   parcours_scan(avl->fg);
   parcours_scan(avl->fd);
+  return avl2;
 };
 
 //Affichage 50 première valeurs de la liste
@@ -264,9 +265,11 @@ int main() {
   while (scanf("%d;%d\n", &id_trajet, &distance)==2) {
       avl=insertion(avl,id_trajet,distance,h);
   };
-  parcours_scan(avl);
+
+  avl2 = parcours_scanv2(avl,avl2,h);  
+  //parcours_scan(avl);
   afficherTop50(p1,50);
-  libererMemoire(p1);
+  //libererMemoire(p1);
 
   return 0;
 }
