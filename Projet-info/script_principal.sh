@@ -103,8 +103,15 @@ prog_s() {
 Affichage du graphique en cours ..."
     # lancer les verif et le traitement demandé
     verification;
-    tail -n +2 Data/data.csv | cut -d';' -f1,5 | "$exe_prog_s" > Demo/prog_s.csv
-    ./Progc/prog_s.sh
+	# Créer le répertoire Demo s'il n'existe pas
+mkdir -p Demo
+
+# Exécuter les commandes
+cut -d';' -f1,2,5 Data/data.csv > Demo/prog_s1.csv
+tail -n +2 Demo/prog_s1.csv > Demo/prog_s2.csv
+./Progc/prog_s Demo/prog_s2.csv
+head -n 50 Demo/sortie.csv > Demo/prog_s.csv
+./Progc/prog_s.sh
 }
 
 # Mesure du temps
