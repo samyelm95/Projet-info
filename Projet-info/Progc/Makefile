@@ -11,19 +11,19 @@ droit :
 	chmod 777 prog_t.sh
 	chmod 777 prog_s.sh
 	cd $(CURRENT_DIR)/.. && chmod 777 script_principal.sh
-run_t : 
+t: 
 	
 	cd $(CURRENT_DIR)/.. && ./script_principal.sh t
-run_d1 :
+d1 :
 	
 	cd $(CURRENT_DIR)/.. && ./script_principal.sh d1
-run_d2 :
+d2 :
 	
 	cd $(CURRENT_DIR)/.. && ./script_principal.sh d2	
-run_l :
+l :
 	
 	cd $(CURRENT_DIR)/.. && ./script_principal.sh l
-run_s :
+s :
 	
 	cd $(CURRENT_DIR)/.. && ./script_principal.sh s
 clean :
