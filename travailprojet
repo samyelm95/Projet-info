@@ -1,0 +1,27 @@
+Répartitions du travail de projet :
+
+
+Répartition des tâches :
+
+Les tâches ont été reparti naturellement en fonction de ce que chacun désirait faire, chacun apportait
+des améliorations sur les traitements des autres membres. Le script Shell et le GNUPLOT a été
+commencé en cours de td puis fini chez nous. Le traitement D1 a été réalisé par Lucas, Les traitements
+D2 et L a été réalisé par Nassim et enfin Samy a réalisé les traitements T et S. Lorsque la majorité du
+travail a été effectué nous avons décidé de mettre le GitHub sous forme demandé, c’est Nassim qui
+s’en ait chargé.
+
+
+Planning de réalisation :
+
+Nous avons dans un premier temps fait une réunion de groupe lors de la réception du sujet du projet
+pour définir les différentes tâches. Nous avons tous fait des recherches sur les différentes tâches
+demandées et nous nous sommes aidés mutuellement. Dans la majorité des cas chaque personne a
+travaillé de son côté pour ensuite effectuer des mises en commun et essayer d’améliorer ce qui ne
+marche pas. Les mises en commun avaient le plus souvent lieu en séance de TD, mais nous avons
+également fait des réunions à distance notamment pendant les vacances.
+
+
+Limitations fonctionnelles :
+
+Le code fonctionne bien, cependant le traitement S ne fonctionne pas. Nous avons essayé de le faire
+marcher sans succès, nous avons souvent une erreur de segmentation sur ce traitement.
