@@ -25,4 +25,5 @@ Limitations fonctionnelles :
 
 Le code fonctionne bien, cependant le traitement S pose quelques problèmes. En effet, l'affichage gnu plot n'a pas
 pu être terminé à temps par manque d'organisation. Il y a bel et un bien un histogramme mais il ne respecte pas les consinges
-données.
+données. Le programme l est assez long par rapport aux consignes. Nous avons du mal avec gnuplot et sa documentation en anglais.
+
